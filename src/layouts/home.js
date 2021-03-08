@@ -63,6 +63,7 @@ const Home = (props) => {
             <h1>{data.firstname }</h1>
           )
         })}
+        
        </>
       )}
       </>
