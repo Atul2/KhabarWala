@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Login from '../components/login';
 import { withRouter } from "react-router-dom";
-import Home  from '../layouts/home';
+import Home  from '../layouts/Home';
 
 
 const SignInOutContainer = (props) => {
@@ -50,7 +50,10 @@ const SignInOutContainer = (props) => {
      
   return (
     <>
-      {user !== null ? (<><Home setUserState={()=>setUser(null)}/></>): (
+      {user !== null ? (
+        <>
+        <Home  setUserState={()=>setUser(null)} />
+      </>) : (
          <>
          <Paper square>
              <Tabs
