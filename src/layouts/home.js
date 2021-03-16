@@ -16,7 +16,7 @@ import { RepeatRounded } from "@material-ui/icons";
 import { fire } from "../helpers/db";
 import Navigation from "../Navigation";
 import axios from "axios";
-import NewsContent  from "../components/NewsContent";
+import NewsContent from "../components/NewsContent";
 
 
 const Home = ({ props }) => {
@@ -50,11 +50,11 @@ const Home = ({ props }) => {
           console.warn("result------>", resp.articles)
           console.log("total_result-->", resp.totalResults)
         })
-    })
+      })
   }, [newsResults, loadmore])
 
-  console.log("news ka array-->",newsArray)
-  console.log("newsResult ka array-->",newsResults)
+  console.log("news ka array-->", newsArray)
+  console.log("newsResult ka array-->", newsResults)
   const handleClose = () => {
     fire
       .signOut()
@@ -84,7 +84,7 @@ const Home = ({ props }) => {
     }
   }
 
-  
+
 
   return (
     <>
