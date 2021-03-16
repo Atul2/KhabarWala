@@ -34,6 +34,7 @@ const user = fire.currentUser;
 function App() {
   return (
     <div className="App">
+      <CssBaseline />
       <Switch>
         <Route exact path="/" render={(props) => <SignInOutContainer {...props} authentiCation={authentication} />} />
         <Route exact path="/Signup" component={Signup} />

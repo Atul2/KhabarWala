@@ -216,4 +216,3 @@ export const FirstStep = (props) => {
     </>
   );
 };
-

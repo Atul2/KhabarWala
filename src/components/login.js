@@ -26,6 +26,9 @@ const Login = (props) => {
     border-color: blue;
   `;
 
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
+  }
 
 
   const handlerLogin = () => {

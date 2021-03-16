@@ -30,7 +30,6 @@ const Signup = (props) => {
         setConfirmPassword(event.target.value);
     }
     const handleSignUp = () => {
-
         fire.createUserWithEmailAndPassword(email, password)
             .then(response => {
                 console.log(response);
@@ -51,7 +50,6 @@ const Signup = (props) => {
                         break;
                     default:
                         console.log(error);
-
                 }
             })
     }
