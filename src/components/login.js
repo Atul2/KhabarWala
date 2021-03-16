@@ -29,6 +29,9 @@ const Login = (props) => {
   const handleEmail = (event) => {
     setEmail(event.target.value);
   }
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
+  }
 
 
   const handlerLogin = () => {

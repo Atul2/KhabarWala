@@ -38,10 +38,8 @@ function App() {
       <Switch>
         <Route exact path="/" render={(props) => <SignInOutContainer {...props} authentiCation={authentication} />} />
         <Route exact path="/Signup" component={Signup} />
-
         <SecuredRoute exact path="/selectNews" component={FirstStep} />
         <SecuredRoute exact path="/selectCategory" component={SecondStep} />
-
         <Redirect to="/" />
       </Switch>
     </div>

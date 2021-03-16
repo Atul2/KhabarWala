@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,6 +8,7 @@ import Login from '../components/login';
 import { withRouter } from "react-router-dom";
 import Home from '../layouts/Home';
 import { db, fire } from "../helpers/db";
+import { multiStepContext } from "../StepContext";
 
 
 const SignInOutContainer = (props) => {
@@ -17,7 +18,7 @@ const SignInOutContainer = (props) => {
   const [category, setCategory] = useState([]);
   const [existuser, setExistUser] = useState('');
   const [news, setNews] = useState([]);
-
+  const { innerdata } = useContext(multiStepContext);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -48,22 +49,17 @@ const SignInOutContainer = (props) => {
     setUser(us);
   }
 
-
-  const fetchCategory = async () => {
-    if (user) {
-      await db.collection("users_news_category").where("userId", "==", user.userId)
-        .onSnapshot((snapshot) => {
-          snapshot.docs.map((doc) => (
-            setNews(doc.data().newsitem),
-            setExistUser(doc.data().userId),
-            setCategory(doc.data().category))
-          )
-        });
-      // await fetchApi(category)
+  console.log("index me user-ka data--", innerdata);
+  const fetchCategory = () => {
+    if (user.userId === innerdata.userId) {
+      setCategory(innerdata.category);
+      setExistUser(innerdata.userId);
+      setNews(innerdata.newsitem);
     }
   }
 
-
+  console.log('index me news---', news);
+  console.log('index me category---', category);
   // const fetchApi = () => {
   //   fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${ category }/in.json`)
   //     .then((result) => {
@@ -82,7 +78,9 @@ const SignInOutContainer = (props) => {
 
     userState();
     fetchCategory(); // eslint-disable-next-line
-  }, [])
+  }, [innerdata])
+
+  console.log("index me category", category)
 
   return (
     <>
@@ -115,6 +113,7 @@ const SignInOutContainer = (props) => {
           </Paper>
         </>
       )}
+
     </>
   )
 }

@@ -19,7 +19,7 @@ import axios from "axios";
 import NewsContent from "../components/NewsContent";
 
 
-const Home = ({ props }) => {
+const Home = ({ news, category, props }) => {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -39,22 +39,46 @@ const Home = ({ props }) => {
   //   }
   // }
 
+  // fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/in.json")
+  // .then((result) => {
+  //   result.json().then((resp) => {
+
+  //     setNewsArray(resp.articles)
+  //     setNewsResults(resp.totalResults)
+  //     console.warn("result------>", resp.articles)
+  //     console.log("total_result-->", resp.totalResults)
+  //   })
+  // })
+  console.log('home me news---', news);
+  console.log('home me category---', category);
+
+
+
+  // console.log("news ka array-->", newsArray)
+  // console.log("newsResult ka array-->", newsResults)
+
+
+  const fetchApi = async () => {
+    const urls = category.map((data) => {
+      return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`)
+    })
+
+    const results = await Promise.all(urls);
+    const arr = [];
+    for (let item of results) {
+      const json = item.json();
+
+      console.log(json)
+    }
+
+    console.log(arr);
+
+  }
 
   useEffect(() => {
-    fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/in.json")
-      .then((result) => {
-        result.json().then((resp) => {
+    fetchApi();
+  }, [category])
 
-          setNewsArray(resp.articles)
-          setNewsResults(resp.totalResults)
-          console.warn("result------>", resp.articles)
-          console.log("total_result-->", resp.totalResults)
-        })
-      })
-  }, [newsResults, loadmore])
-
-  console.log("news ka array-->", newsArray)
-  console.log("newsResult ka array-->", newsResults)
   const handleClose = () => {
     fire
       .signOut()
@@ -103,23 +127,7 @@ const Home = ({ props }) => {
             </AppBar>
           </div>
 
-          <div align="center">
-            <Stepper
-              style={{ width: "85%" }}
-              activeStep={currentStep - 1}
-              orientation="horizontal"
-            >
-              <Step>
-                <StepLabel></StepLabel>
-              </Step>
-              <Step>
-                <StepLabel></StepLabel>
-              </Step>
-              <Step>
-                <StepLabel></StepLabel>
-              </Step>
-            </Stepper>
-          </div>
+
           {showSteps(currentStep)}
 
           {/* {finalData.map((data, i) => {
