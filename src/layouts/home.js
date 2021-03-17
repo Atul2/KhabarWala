@@ -13,29 +13,38 @@ import { FirstStep } from "../components/FirstStep";
 import { SecondStep } from "../components/SecondStep";
 import { multiStepContext } from "../StepContext";
 import { RepeatRounded } from "@material-ui/icons";
-import { fire } from "../helpers/db";
+import { db, fire } from "../helpers/db";
 import Navigation from "../Navigation";
 import axios from "axios";
 import NewsContent from "../components/NewsContent";
 import userEvent from "@testing-library/user-event";
 
 
-const Home = (props) => {
-  console.log("home--", props.isData.category);
-  console.log("home news--", props.isData.newsitem);
+const Home = ({ user, existuser }) => {
+
   const [auth, setAuth] = React.useState(true);
-  const { currentStep, finalData, setStep, innerdata } = useContext(multiStepContext);
+  const { currentStep, finalData, setStep, innerdata, userID } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
   const [loadmore, setLoadmore] = useState(5);
-  const [category1, setCategory1] = useState(props.isData.category);
-  const [news1, setNews1] = useState(props ? props.isData.newsitem : []);
+  const [category1, setCategory1] = useState([]);
+  const [news1, setNews1] = useState([]);
 
 
 
   useEffect(() => {
+    db.collection("users_news_category").where("userId", "==", userID).onSnapshot((snapshot) => {
+      snapshot.docs.map((doc) => {
+        setCategory1(doc.data().category);
+        setNews1(doc.data().newsitem);
+
+      }
+
+      )
+    });
 
     fetchApi();
+
   }, []);
 
 
@@ -58,13 +67,9 @@ const Home = (props) => {
 
     const mergeData = filterItem.concat(...articles);
 
-    const data = mergeData.filter((item) => {
-      return news1.includes(item.source.name)
-    });
-
-    newsArray(data);
-    newsResults(data.length);
-
+    const getData = mergeData.filter((item) => { return news1.includes(item.source.name) });
+    setNewsArray(getData);
+    setNewsResults(getData.length);
   }
 
 
