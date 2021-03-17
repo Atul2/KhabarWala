@@ -43,23 +43,34 @@ const SignInOutContainer = (props) => {
     );
   }
 
+  useEffect(() => {
+    userState();
+    fetchCategory();
+  }, [])
+
   const userState = () => {
     const data = localStorage.getItem('user');
     const us = data !== null ? JSON.parse(data) : null;
     setUser(us);
   }
 
-  console.log("index me user-ka data--", innerdata);
-  const fetchCategory = () => {
-    if (user.userId === innerdata.userId) {
-      setCategory(innerdata.category);
-      setExistUser(innerdata.userId);
-      setNews(innerdata.newsitem);
+  console.log("index me user---", user);
+  console.log("index inner data --->", innerdata);
+  const fetchCategory = async () => {
+    if (user) {
+      await db.collection("users_news_category").where("userId", "==", user.userId).onSnapshot((snapshot) => {
+        snapshot.docs.map((doc) => (
+          console.log("index me user ka data--", doc.data()),
+          setNews(doc.data().newsitem),
+          setExistUser(doc.data().userId),
+          setCategory(doc.data().category))
+        )
+      });
+      // await fetchApi(category)
     }
   }
 
-  console.log('index me news---', news);
-  console.log('index me category---', category);
+
   // const fetchApi = () => {
   //   fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${ category }/in.json`)
   //     .then((result) => {
@@ -73,14 +84,9 @@ const SignInOutContainer = (props) => {
   //   })
   // }
 
-  useEffect(() => {
 
 
-    userState();
-    fetchCategory(); // eslint-disable-next-line
-  }, [innerdata])
-
-  console.log("index me category", category)
+  console.log("index me category", category);
 
   return (
     <>

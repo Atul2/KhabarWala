@@ -17,67 +17,45 @@ import { fire } from "../helpers/db";
 import Navigation from "../Navigation";
 import axios from "axios";
 import NewsContent from "../components/NewsContent";
+import userEvent from "@testing-library/user-event";
 
 
-const Home = ({ news, category, props }) => {
+const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
   const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const { currentStep, finalData } = useContext(multiStepContext);
+  const { currentStep, finalData, setStep, innerdata } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
-  const [loadmore, setLoadmore] = useState(20);
+  const [loadmore, setLoadmore] = useState(5);
+  const [category1, setCategory1] = useState(innerdata ? innerdata.category : []);
+  const [news1, setNews1] = useState(innerdata ? innerdata.newsitem : []);
 
-  // const newsApi = async () => {
-  //   try {
-  //     const news = await axios.get(`https://saurav.tech/NewsAPI/top-headlines/category/business/in.json`
-  //     );
-  //     console.log("ye news hai-->", news);
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/in.json")
-  // .then((result) => {
-  //   result.json().then((resp) => {
-
-  //     setNewsArray(resp.articles)
-  //     setNewsResults(resp.totalResults)
-  //     console.warn("result------>", resp.articles)
-  //     console.log("total_result-->", resp.totalResults)
-  //   })
-  // })
-  console.log('home me news---', news);
-  console.log('home me category---', category);
-
-
-
-  // console.log("news ka array-->", newsArray)
-  // console.log("newsResult ka array-->", newsResults)
-
-
-  const fetchApi = async () => {
-    const urls = category.map((data) => {
-      return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`)
-    })
-
-    const results = await Promise.all(urls);
-    const arr = [];
-    for (let item of results) {
-      const json = item.json();
-
-      console.log(json)
-    }
-
-    console.log(arr);
-
-  }
+  console.log("home page me news data---", news);
 
   useEffect(() => {
+    fetchCategory();
     fetchApi();
-  }, [category])
+  }, []);
+
+  const arr = [];
+
+  const fetchApi = async () => {
+    const categoryy = ["health", "sports"];
+    const urls = categoryy.map((data) => {
+      return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
+    });
+
+    const results = await Promise.all(urls);
+
+    arr.push(...results);
+
+    const articles = arr.map((data) => data.articles);
+
+    const filterItem = articles.filter((data) => { return data });
+    console.log("final--", filterItem);
+  }
+
+
+
 
   const handleClose = () => {
     fire
@@ -128,20 +106,9 @@ const Home = ({ news, category, props }) => {
           </div>
 
 
-          {showSteps(currentStep)}
+          {existuser === user.userId ? setStep(3) : showSteps(currentStep)}
 
-          {/* {finalData.map((data, i) => {
-            return (
-              <tr>
-                <li key={i}>{data.category[i]}</li>
-                <h5>{data.toi}</h5>
-                <h5>{data.hindustantimes}</h5>
-                <h5>{data.indianExpress}</h5>
-                <h5>{data.ndtv}</h5>
-                {console.log("bilkul naya after submit-->", data)}
-              </tr>
-            );
-          })} */}
+
         </>
       )}
     </>

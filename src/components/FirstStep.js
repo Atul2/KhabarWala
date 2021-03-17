@@ -192,7 +192,7 @@ export const FirstStep = (props) => {
           </Grid>
           <Box ml={2}>
             {
-              docID == '' ? <Button
+              docID === '' ? <Button
                 variant="contained"
                 onClick={() => setStep(2)}
                 color="primary"
