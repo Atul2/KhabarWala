@@ -20,16 +20,18 @@ import NewsContent from "../components/NewsContent";
 import userEvent from "@testing-library/user-event";
 
 
-const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
+const Home = (props) => {
+  console.log("home--", props.isData.category);
+  console.log("home news--", props.isData.newsitem);
   const [auth, setAuth] = React.useState(true);
   const { currentStep, finalData, setStep, innerdata } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
   const [loadmore, setLoadmore] = useState(5);
-  const [category1, setCategory1] = useState(innerdata ? innerdata.category : []);
-  const [news1, setNews1] = useState(innerdata ? innerdata.newsitem : []);
+  const [category1, setCategory1] = useState(props.isData.category);
+  const [news1, setNews1] = useState(props ? props.isData.newsitem : []);
 
-  console.log("home page me news data---", news);
+
 
   useEffect(() => {
 
@@ -42,9 +44,9 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
     const arr = [];
     const filterItem = [];
 
-    const categoryy = ["health", "sports"];
 
-    const urls = categoryy.map((data) => {
+
+    const urls = category1.map((data) => {
       return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
     });
 
@@ -54,10 +56,15 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
 
     const articles = arr.map((data) => data.articles);
 
-    filterItem.concat(...articles);
+    const mergeData = filterItem.concat(...articles);
 
+    const data = mergeData.filter((item) => {
+      return news1.includes(item.source.name)
+    });
 
-    console.log("final--", filterItem);
+    newsArray(data);
+    newsResults(data.length);
+
   }
 
 
@@ -112,7 +119,7 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
           </div>
 
 
-          {existuser === user.userId ? setStep(3) : showSteps(currentStep)}
+          {/* {existuser === user.userId ? setStep(3) : showSteps(currentStep)} */}
 
 
         </>

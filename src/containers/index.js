@@ -57,9 +57,9 @@ const SignInOutContainer = (props) => {
   console.log("index me user---", user);
   console.log("index inner data --->", innerdata);
 
-  const fetchCategory = async () => {
+  const fetchCategory = () => {
     if (user) {
-      await db.collection("users_news_category").where("userId", "==", user.userId).onSnapshot((snapshot) => {
+      db.collection("users_news_category").where("userId", "==", user.userId).onSnapshot((snapshot) => {
         snapshot.docs.map((doc) => (
           console.log("index me user ka data--", doc.data()),
           setNews(doc.data().newsitem),
@@ -95,6 +95,7 @@ const SignInOutContainer = (props) => {
         <>
           <Home
             isAuthenticate={props.authentiCation}
+            isData={innerdata}
             news={news}
             user={user}
             existuser={existuser}
