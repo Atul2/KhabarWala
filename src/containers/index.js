@@ -46,7 +46,7 @@ const SignInOutContainer = (props) => {
   useEffect(() => {
     userState();
     fetchCategory();
-  }, [])
+  }, [user])
 
   const userState = () => {
     const data = localStorage.getItem('user');
@@ -56,6 +56,7 @@ const SignInOutContainer = (props) => {
 
   console.log("index me user---", user);
   console.log("index inner data --->", innerdata);
+
   const fetchCategory = async () => {
     if (user) {
       await db.collection("users_news_category").where("userId", "==", user.userId).onSnapshot((snapshot) => {

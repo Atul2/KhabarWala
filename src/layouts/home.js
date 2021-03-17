@@ -37,6 +37,7 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
   }, []);
 
   const arr = [];
+  const filterItem = [];
 
   const fetchApi = async () => {
     const categoryy = ["health", "sports"];
@@ -50,7 +51,8 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
 
     const articles = arr.map((data) => data.articles);
 
-    const filterItem = articles.filter((data) => { return data });
+
+    filterItem.push(...articles);
     console.log("final--", filterItem);
   }
 
