@@ -41,8 +41,11 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
 
   const fetchApi = async () => {
     const categoryy = ["health", "sports"];
-    const urls = categoryy.map((data) => {
-      return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
+
+    const urls = categoryy.map(async (data) => {
+      const response = await fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`);
+      const json = await response.json();
+      return json;
     });
 
     const results = await Promise.all(urls);
