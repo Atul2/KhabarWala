@@ -100,6 +100,7 @@ const SignInOutContainer = (props) => {
             user={user}
             existuser={existuser}
             category={category}
+
             fetchCategory={fetchCategory}
             setUserState={() => setUser(null)}
           />

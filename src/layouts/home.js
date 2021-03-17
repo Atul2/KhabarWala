@@ -20,10 +20,10 @@ import NewsContent from "../components/NewsContent";
 import userEvent from "@testing-library/user-event";
 
 
-const Home = ({ user, existuser }) => {
+const Home = ({ user, existuser, category, news }) => {
 
   const [auth, setAuth] = React.useState(true);
-  const { currentStep, finalData, setStep, innerdata, userID } = useContext(multiStepContext);
+  const { currentStep, finalData, setStep, innerdata, userID, isData } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
   const [loadmore, setLoadmore] = useState(5);
@@ -33,17 +33,12 @@ const Home = ({ user, existuser }) => {
 
 
   useEffect(() => {
-    db.collection("users_news_category").where("userId", "==", userID).onSnapshot((snapshot) => {
-      snapshot.docs.map((doc) => {
-        setCategory1(doc.data().category);
-        setNews1(doc.data().newsitem);
 
-      }
+    const a = fetchApi();
+    console.log("gf", a);
+    // setNewsArray(a.getData);
+    // setNewsResults(a.getData.length);
 
-      )
-    });
-
-    fetchApi();
 
   }, []);
 
@@ -55,7 +50,7 @@ const Home = ({ user, existuser }) => {
 
 
 
-    const urls = category1.map((data) => {
+    const urls = ["business"].map((data) => {
       return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
     });
 
@@ -67,11 +62,9 @@ const Home = ({ user, existuser }) => {
 
     const mergeData = filterItem.concat(...articles);
 
-    const getData = mergeData.filter((item) => { return news1.includes(item.source.name) });
-    setNewsArray(getData);
-    setNewsResults(getData.length);
+    const getData = mergeData.filter((item) => { return ["Hindustan Times", "The Indian Express", "NDTV News"].includes(item.source.name) });
+    return getData;
   }
-
 
 
 
@@ -124,7 +117,7 @@ const Home = ({ user, existuser }) => {
           </div>
 
 
-          {/* {existuser === user.userId ? setStep(3) : showSteps(currentStep)} */}
+          {existuser === user.userId ? setStep(3) : showSteps(currentStep)}
 
 
         </>
