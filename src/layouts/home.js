@@ -48,8 +48,6 @@ const Home = ({ user, existuser, category, news }) => {
     const arr = [];
     const filterItem = [];
 
-
-
     const urls = ["business"].map((data) => {
       return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
     });
