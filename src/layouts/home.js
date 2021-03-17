@@ -32,20 +32,20 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
   console.log("home page me news data---", news);
 
   useEffect(() => {
-    fetchCategory();
+
     fetchApi();
   }, []);
 
-  const arr = [];
-  const filterItem = [];
+
 
   const fetchApi = async () => {
+    const arr = [];
+    const filterItem = [];
+
     const categoryy = ["health", "sports"];
 
-    const urls = categoryy.map(async (data) => {
-      const response = await fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`);
-      const json = await response.json();
-      return json;
+    const urls = categoryy.map((data) => {
+      return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
     });
 
     const results = await Promise.all(urls);
@@ -54,8 +54,9 @@ const Home = ({ news, category, props, existuser, user, fetchCategory }) => {
 
     const articles = arr.map((data) => data.articles);
 
+    filterItem.concat(...articles);
 
-    filterItem.push(...articles);
+
     console.log("final--", filterItem);
   }
 

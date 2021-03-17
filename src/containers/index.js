@@ -46,7 +46,7 @@ const SignInOutContainer = (props) => {
   useEffect(() => {
     userState();
     fetchCategory();
-  }, [user])
+  }, [])
 
   const userState = () => {
     const data = localStorage.getItem('user');
