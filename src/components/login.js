@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Avatar, Grid, Paper, Button, Typography } from '@material-ui/core';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import Box from '@material-ui/core/Box';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, useHistory } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,6 +10,7 @@ import { fire } from "../helpers/db";
 import { multiStepContext } from "../StepContext";
 import { ScaleLoader } from 'react-spinners';
 import { SettingsEthernetSharp } from '@material-ui/icons';
+
 
 const Login = (props) => {
   console.log("Log-->", props);
@@ -19,6 +20,7 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('');
   const { setGetId, setUserData, docID, setStep } = useContext(multiStepContext);
+  const history = useHistory();
 
   const override = `
     display: block;
@@ -32,7 +34,7 @@ const Login = (props) => {
   const handlePassword = (event) => {
     setPassword(event.target.value);
   }
-
+  console.log("login me", docID);
 
   const handlerLogin = () => {
     setLoading(true);
@@ -51,12 +53,9 @@ const Login = (props) => {
         const loggedInUser = storage !== null ? JSON.parse(storage) : null;
         props.loggedIn(loggedInUser);
         setLoading(false);
-        if (docID === '') {
-          setStep(1);
-        } else {
-          setStep(3);
-        }
+
         props.auth.onAuthentication();
+
 
 
       }).catch(error => {

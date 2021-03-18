@@ -18,7 +18,7 @@ import Navigation from "../Navigation";
 import axios from "axios";
 import NewsContent from "../components/NewsContent";
 import userEvent from "@testing-library/user-event";
-
+import { withRouter, useHistory } from "react-router-dom";
 
 const Home = ({ user, existuser, category, news }) => {
 
@@ -30,7 +30,7 @@ const Home = ({ user, existuser, category, news }) => {
   const [category1, setCategory1] = useState([]);
   const [news1, setNews1] = useState([]);
   const [existuser1, setExist1] = useState("");
-
+  const history = useHistory();
 
 
   useEffect(() => {
@@ -107,18 +107,18 @@ const Home = ({ user, existuser, category, news }) => {
       .catch(console.error);
   };
 
-  function showSteps(step) {
-    switch (step) {
-      case 1:
-        return <FirstStep />;
-      case 2:
-        return <SecondStep />;
+  var showComponent;
 
-      default:
-        return null;
-    }
+  if (userID === existuser1) {
+    showComponent = <NewsContent
+      setLoadmore={setLoadmore}
+      loadmore={loadmore}
+      newsArray={newsArray}
+      newsResults={newsResults}
+    />;
+  } else {
+    showComponent = <FirstStep />;
   }
-
 
 
   return (
@@ -139,19 +139,15 @@ const Home = ({ user, existuser, category, news }) => {
           </div>
 
 
-          {userID == existuser1 ?
-            (<NewsContent
-              setLoadmore={setLoadmore}
-              loadmore={loadmore}
-              newsArray={newsArray}
-              newsResults={newsResults}
-            />)
-            : showSteps(currentStep)}
-          {console.log("step---", currentStep)}
+
+
+
+          {showComponent}
+
         </>
       )}
     </>
   );
 };
 
-export default Home;
+export default withRouter(Home);

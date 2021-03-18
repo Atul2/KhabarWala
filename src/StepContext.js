@@ -33,6 +33,7 @@ const StepContext = ({ children, props }) => {
           .then(() => {
 
             console.log("added")
+
           });
       });
 

@@ -6,6 +6,8 @@ import { CssBaseline } from "@material-ui/core";
 import { FirstStep } from "./components/FirstStep";
 import { SecondStep } from "./components/SecondStep";
 import { db, fire } from "./helpers/db";
+import NewsContent from "./components/NewsContent";
+import { Home } from "@material-ui/icons";
 
 
 const authentication = {
@@ -40,6 +42,7 @@ function App() {
         <Route exact path="/Signup" component={Signup} />
         <SecuredRoute exact path="/selectNews" component={FirstStep} />
         <SecuredRoute exact path="/selectCategory" component={SecondStep} />
+        <SecuredRoute exact path="/news-contents" component={Home} />
         <Redirect to="/" />
       </Switch>
     </div>
