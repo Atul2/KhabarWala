@@ -107,15 +107,7 @@ const SignInOutContainer = (props) => {
         </>) : (
         <>
           <Paper square>
-            <Tabs
-              indicatorColor="primary"
-              textColor="primary"
-              value={value}
-              aria-label="disabled tabs example"
-              onChange={handleChange}
-            >
-              <Tab label="KhabarWala" />
-            </Tabs>
+
             <TabPanel value={value} index={0}>
               <Login loggedIn={(user) => setUser(user)} auth={props.authentiCation} visit="/Signup" />
             </TabPanel>

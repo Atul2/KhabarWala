@@ -10,7 +10,7 @@ import { fire } from "../helpers/db";
 import { multiStepContext } from "../StepContext";
 import { ScaleLoader } from 'react-spinners';
 import { SettingsEthernetSharp } from '@material-ui/icons';
-
+import newman from '../news_images/newman.png';
 
 const Login = (props) => {
   console.log("Log-->", props);
@@ -65,68 +65,76 @@ const Login = (props) => {
   }
 
   return (
-    <Grid align="center" p={10}>
-      <Paper elevation={10} style={paperStyle}>
-        <Avatar style={avatarStyle}><LockOutlined /></Avatar>
-        <h2>Sign In</h2>
-        <ValidatorForm
-          onSubmit={handlerLogin}
-          onError={errors => {
-            for (const err of errors) {
-              console.log(err.props.errorMessages[0])
-            }
-          }}
-        >
+    <>
 
-          <TextValidator
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            label="Email"
-            onChange={handleEmail}
-            name="email"
-            value={email}
-            validators={['required', 'isEmail']}
-            errorMessages={['This field is required', 'Email is not valid']}
-            autoComplete='off'
-          />
+      <Grid align="center" >
 
-          <TextValidator
-            variant="outlined"
-            fullWidth
-            label="Password"
-            onChange={handlePassword}
-            name="password"
-            type="password"
-            value={password}
-            validators={['required']}
-            errorMessages={['This field is required']}
-            autoComplete='off'
-          />
-          {loading ? (
-            <ScaleLoader
-              css={override}
-              size={150}
-              color={'#3f51b5'}
-              loading={loading}
+
+
+        <Paper elevation={10} style={paperStyle}>
+
+
+          <Avatar style={avatarStyle}><LockOutlined /></Avatar>
+          <h2>Sign In</h2>
+          <ValidatorForm
+            onSubmit={handlerLogin}
+            onError={errors => {
+              for (const err of errors) {
+                console.log(err.props.errorMessages[0])
+              }
+            }}
+          >
+
+            <TextValidator
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Email"
+              onChange={handleEmail}
+              name="email"
+              value={email}
+              validators={['required', 'isEmail']}
+              errorMessages={['This field is required', 'Email is not valid']}
+              autoComplete='off'
             />
-          ) : (
-            <Box m={2} p={1}>
-              <Button type="submit" color="primary" variant="contained" fullWidth>Sign In</Button>
-            </Box>
-          )}
+
+            <TextValidator
+              variant="outlined"
+              fullWidth
+              label="Password"
+              onChange={handlePassword}
+              name="password"
+              type="password"
+              value={password}
+              validators={['required']}
+              errorMessages={['This field is required']}
+              autoComplete='off'
+            />
+            {loading ? (
+              <ScaleLoader
+                css={override}
+                size={150}
+                color={'#3f51b5'}
+                loading={loading}
+              />
+            ) : (
+              <Box m={2} p={1}>
+                <Button type="submit" color="primary" variant="contained" fullWidth>Sign In</Button>
+              </Box>
+            )}
 
 
 
-        </ValidatorForm>
-        {/* <TextField label="Username" placeholder="Enter Username" fullWidth required />
+          </ValidatorForm>
+          {/* <TextField label="Username" placeholder="Enter Username" fullWidth required />
               <TextField label="Password" placeholder="Enter Password" fullWidth required /> */}
 
-        <Typography>
-          Do you have an account? <NavLink className="nav-link" to={props.visit}>Sign Up</NavLink>
-        </Typography>
-      </Paper>
-    </Grid>
+          <Typography>
+            Do you have an account? <NavLink className="nav-link" to={props.visit}>Sign Up</NavLink>
+          </Typography>
+        </Paper>
+      </Grid>
+    </>
   )
 }
 
