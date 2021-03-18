@@ -119,7 +119,9 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
       newsResults={newsResults}
     />;
   } else {
+
     showComponent = <FirstStep />;
+
   }
 
   if (secondStep === 'secondStep') {
