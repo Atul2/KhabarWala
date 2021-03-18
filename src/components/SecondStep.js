@@ -114,6 +114,7 @@ export const SecondStep = () => {
             docID === '' ?
 
               <Button
+                type="submit"
                 variant="contained"
                 onClick={() => submitData()}
                 color="primary"
@@ -121,6 +122,7 @@ export const SecondStep = () => {
 
               :
               <Button variant="contained"
+                type="submit"
                 onClick={() => UpdateCategory()}
                 color="Secondary" >
                 Update
