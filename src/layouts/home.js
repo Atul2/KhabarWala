@@ -19,6 +19,8 @@ import axios from "axios";
 import NewsContent from "../components/NewsContent";
 import userEvent from "@testing-library/user-event";
 import { withRouter, useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 
@@ -137,6 +139,7 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
     <>
       {auth && (
         <>
+          <ToastContainer />
           <div style={{ flexGrow: 1 }}>
             <AppBar position="sticky">
               <Toolbar>

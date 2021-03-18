@@ -3,7 +3,8 @@ import Home from "./layouts/Home";
 import { withRouter, useHistory } from "react-router-dom";
 import { db, fire } from "./helpers/db";
 import { Redirect, Route } from "react-router";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const multiStepContext = React.createContext();
 
@@ -33,7 +34,7 @@ const StepContext = ({ children, props }) => {
         db.collection("users_news_category")
           .add({ category: data.category, newsitem: data.newsitem, userId: user.uid, createdAt: new Date() })
           .then(() => {
-
+            toast.success("User selected news and category successfully..");
             console.log("added")
             window.location.reload();
           });
@@ -56,10 +57,8 @@ const StepContext = ({ children, props }) => {
           .update({ newsitem: data.newsitem, userId: user.uid, createdAt: new Date() })
           .then(() => {
             console.log("news updated..");
-
+            toast.success("news updated successfully..");
             history.goBack();
-
-
           });
       });
     } catch (error) {
@@ -80,7 +79,7 @@ const StepContext = ({ children, props }) => {
           .update({ category: data.category, userId: user.uid, createdAt: new Date() })
           .then(() => {
             console.log("category updated..");
-
+            toast.success("category updated successfully..");
             history.goBack();
 
 
@@ -169,6 +168,7 @@ const StepContext = ({ children, props }) => {
         >
           {/* <Home /> */}
           {children}
+          {<ToastContainer />}
         </multiStepContext.Provider>
       </div>
     </>

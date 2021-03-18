@@ -119,7 +119,8 @@ export const SecondStep = () => {
                 color="primary"
               >Submit</Button>
 
-              : <button variant="contained"
+              :
+              <button variant="contained"
                 onClick={UpdateCategory}
                 color="Secondary" >
                 Update
