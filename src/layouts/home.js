@@ -20,10 +20,10 @@ import NewsContent from "../components/NewsContent";
 import userEvent from "@testing-library/user-event";
 import { withRouter, useHistory } from "react-router-dom";
 
-const Home = ({ user, existuser, category, news }) => {
+const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 
   const [auth, setAuth] = React.useState(true);
-  const { currentStep, finalData, setStep, innerdata, userID, isData } = useContext(multiStepContext);
+  const { currentStep, finalData, setSecondStep, secondStep, innerdata, userID, isData } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
   const [loadmore, setLoadmore] = useState(3);
@@ -36,7 +36,7 @@ const Home = ({ user, existuser, category, news }) => {
   useEffect(() => {
     getUser();
     fetchApi();
-
+    isAuthenticate.onAuthentication();
     // setNewsArray(a.getData);
     // setNewsResults(a.getData.length);
 
@@ -109,6 +109,8 @@ const Home = ({ user, existuser, category, news }) => {
 
   var showComponent;
 
+
+
   if (userID === existuser1) {
     showComponent = <NewsContent
       setLoadmore={setLoadmore}
@@ -119,6 +121,14 @@ const Home = ({ user, existuser, category, news }) => {
   } else {
     showComponent = <FirstStep />;
   }
+
+  if (secondStep === 'secondStep') {
+    showComponent = <SecondStep />;
+  }
+  if (secondStep === 'firstStep') {
+    showComponent = <FirstStep />;
+  }
+
 
 
   return (

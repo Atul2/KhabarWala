@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SecondStep = () => {
-  const { setStep, userData, setUserData, submitData, innerdata, docID, UpdateCategory } = useContext(
+  const { setStep, userData, setUserData, submitData, innerdata, docID, UpdateCategory, setSecondStep } = useContext(
     multiStepContext
   );
   const [innerData, setInnerData] = useState(!innerdata ? [] : innerdata);
@@ -103,7 +103,7 @@ export const SecondStep = () => {
         <Box m={2} p={2} style={boxStyle}>
           {docID ? null : <Button
             variant="contained"
-            onClick={() => setStep(1)}
+            onClick={() => setSecondStep('firstStep')}
             color="secondary"
           >
             Back
@@ -111,17 +111,20 @@ export const SecondStep = () => {
           }
 
           {
-            docID ?
-              <button variant="contained"
-                onClick={UpdateCategory}
-                color="Secondary" >Update</button>
-              : <Button
+            docID === '' ?
+
+              <Button
                 variant="contained"
                 onClick={submitData}
                 color="primary"
-              >
-                Submit
-            </Button>
+              >Submit</Button>
+
+              : <button variant="contained"
+                onClick={UpdateCategory}
+                color="Secondary" >
+                Update
+              </button>
+
           }
         </Box>
       </div>

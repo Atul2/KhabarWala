@@ -9,6 +9,8 @@ export const multiStepContext = React.createContext();
 
 const StepContext = ({ children, props }) => {
   const [currentStep, setStep] = useState(0);
+
+  const [secondStep, setSecondStep] = useState('');
   const [userData, setUserData] = useState([]);
   const [finalData, setFinalData] = useState([]);
   const [innerdata, setInnerData] = useState([]);
@@ -144,6 +146,8 @@ const StepContext = ({ children, props }) => {
       <div>
         <multiStepContext.Provider
           value={{
+            secondStep,
+            setSecondStep,
             UpdateNews,
             innerdata,
             UpdateCategory,

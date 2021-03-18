@@ -30,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export const FirstStep = (props) => {
-  const { setStep, userData, setUserData, submitData, UpdateNews, docID, userID, innerdata } = useContext(multiStepContext);
+  console.log("first step props me--", props);
+
+  const { setStep, userData, setUserData, submitData, UpdateNews, docID, userID, setSecondStep, innerdata } = useContext(multiStepContext);
   console.log(useContext(multiStepContext));
   const classes = useStyles();
   const [newsitem, setNewsItem] = useState([]);
@@ -192,12 +194,13 @@ export const FirstStep = (props) => {
           </Grid>
           <Box ml={2}>
             {
-              docID === '' ? <Button
-                variant="contained"
-                onClick={() => setStep(2)}
-                color="primary"
-              >
-                Next
+              docID === '' ?
+                <Button
+                  variant="contained"
+                  onClick={() => setSecondStep('secondStep')}
+                  color="primary"
+                >
+                  Next
             </Button> :
 
                 <Button
