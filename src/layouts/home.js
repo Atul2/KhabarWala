@@ -26,23 +26,43 @@ const Home = ({ user, existuser, category, news }) => {
   const { currentStep, finalData, setStep, innerdata, userID, isData } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
-  const [loadmore, setLoadmore] = useState(5);
+  const [loadmore, setLoadmore] = useState(3);
   const [category1, setCategory1] = useState([]);
   const [news1, setNews1] = useState([]);
+  const [existuser1, setExist1] = useState("");
 
 
 
   useEffect(() => {
+    getUser();
+    fetchApi();
 
-    const a = fetchApi();
-    console.log("gf", a);
     // setNewsArray(a.getData);
     // setNewsResults(a.getData.length);
 
 
-  }, []);
+  }, [userID]);
 
+  const getUser = () => {
+    if (userID) {
+      db.collection("users_news_category").where("userId", "==", userID)
+        .onSnapshot((snapshot) => {
+          snapshot.docs.map((doc) => {
+            setExist1(doc.data().userId);
+            setCategory1(doc.data().category);
+            setNews1(doc.data().newsitem);
+          })
+        })
+    } else {
+      console.log("kuch ni mila fir se dekh..le");
+    }
+  }
 
+  console.log("category 1---", category1);
+
+  console.log("News 1---", news1);
+
+  console.log("exist user 1---", existuser1);
 
   const fetchApi = async () => {
     const arr = [];
@@ -61,10 +81,16 @@ const Home = ({ user, existuser, category, news }) => {
     const mergeData = filterItem.concat(...articles);
 
     const getData = mergeData.filter((item) => { return ["Hindustan Times", "The Indian Express", "NDTV News"].includes(item.source.name) });
-    return getData;
+
+    if (getData.length > 1) {
+      setNewsArray(getData);
+      setNewsResults(getData.length);
+    } else {
+      console.log("home page no data in array ");
+    }
   }
 
-
+  console.log("news array--", newsArray);
 
   const handleClose = () => {
     fire
@@ -83,13 +109,7 @@ const Home = ({ user, existuser, category, news }) => {
         return <FirstStep />;
       case 2:
         return <SecondStep />;
-      case 3:
-        return <NewsContent
-          setLoadmore={setLoadmore}
-          loadmore={loadmore}
-          newsArray={newsArray}
-          newsResults={newsResults}
-        />;
+
       default:
         return null;
     }
@@ -115,9 +135,15 @@ const Home = ({ user, existuser, category, news }) => {
           </div>
 
 
-          {existuser === user.userId ? setStep(3) : showSteps(currentStep)}
-
-
+          {userID == existuser1 ?
+            (<NewsContent
+              setLoadmore={setLoadmore}
+              loadmore={loadmore}
+              newsArray={newsArray}
+              newsResults={newsResults}
+            />)
+            : showSteps(currentStep)}
+          {console.log("step---", currentStep)}
         </>
       )}
     </>
