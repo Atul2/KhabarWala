@@ -41,7 +41,7 @@ const Home = ({ user, existuser, category, news }) => {
     // setNewsResults(a.getData.length);
 
 
-  }, [userID]);
+  }, [userID, category1]);
 
   const getUser = () => {
     if (userID) {

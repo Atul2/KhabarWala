@@ -31,7 +31,7 @@ const StepContext = ({ children, props }) => {
         db.collection("users_news_category")
           .add({ category: data.category, newsitem: data.newsitem, userId: user.uid, createdAt: new Date() })
           .then(() => {
-            setStep(3);
+
             console.log("added")
           });
       });
