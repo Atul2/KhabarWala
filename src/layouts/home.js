@@ -64,11 +64,15 @@ const Home = ({ user, existuser, category, news }) => {
 
   console.log("exist user 1---", existuser1);
 
+  //category ["business", "sports","health"]
+
+  // news ["Hindustan Times", "The Indian Express", "NDTV News"]
+
   const fetchApi = async () => {
     const arr = [];
     const filterItem = [];
 
-    const urls = ["business"].map((data) => {
+    const urls = category1.map((data) => {
       return fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${data}/in.json`).then(resp => resp.json());
     });
 
@@ -80,7 +84,7 @@ const Home = ({ user, existuser, category, news }) => {
 
     const mergeData = filterItem.concat(...articles);
 
-    const getData = mergeData.filter((item) => { return ["Hindustan Times", "The Indian Express", "NDTV News"].includes(item.source.name) });
+    const getData = mergeData.filter((item) => { return news1.includes(item.source.name) });
 
     if (getData.length > 1) {
       setNewsArray(getData);
