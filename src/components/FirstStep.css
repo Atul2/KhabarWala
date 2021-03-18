@@ -1,0 +1,3 @@
+@media screen and (min-width: 0px) and (max-width: 400px) {
+    #my-content {  width: 310px; padding: 10px;}  /* show it on small screens */
+  }

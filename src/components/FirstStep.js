@@ -96,7 +96,7 @@ export const FirstStep = (props) => {
       <Container className={classes.root}>
         <Grid container align="center" spacing={3}>
           <Grid item sm={3}>
-            <Card>
+            <Card >
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
@@ -204,12 +204,11 @@ export const FirstStep = (props) => {
             </Button> :
 
                 <Button
+                  type="submit"
                   variant="contained"
-                  onClick={UpdateNews}
+                  onClick={() => UpdateNews()}
                   color="secondary"
-                >
-                  Update
-            </Button>
+                >Update</Button>
             }
 
 

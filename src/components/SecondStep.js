@@ -115,16 +115,16 @@ export const SecondStep = () => {
 
               <Button
                 variant="contained"
-                onClick={submitData}
+                onClick={() => submitData()}
                 color="primary"
               >Submit</Button>
 
               :
-              <button variant="contained"
-                onClick={UpdateCategory}
+              <Button variant="contained"
+                onClick={() => UpdateCategory()}
                 color="Secondary" >
                 Update
-              </button>
+              </Button>
 
           }
         </Box>
