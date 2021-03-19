@@ -35,7 +35,7 @@ const StepContext = ({ children, props }) => {
           .add({ category: data.category, newsitem: data.newsitem, userId: user.uid, createdAt: new Date() })
           .then(() => {
             toast.success("User selected news and category successfully..");
-            console.log("added")
+            console.log("added");
 
             window.location.reload();
           });
