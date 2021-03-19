@@ -36,7 +36,7 @@ const StepContext = ({ children, props }) => {
           .then(() => {
             toast.success("User selected news and category successfully..");
             console.log("added")
-            history.goForward("/news-content");
+            history.push("/news-content")
           });
       });
 
