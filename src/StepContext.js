@@ -64,6 +64,7 @@ const StepContext = ({ children, props }) => {
       });
     } catch (error) {
       window.location.reload();
+      history.goBack();
       console.log("error=>", error)
     }
 
@@ -89,6 +90,7 @@ const StepContext = ({ children, props }) => {
       });
     } catch (error) {
       window.location.reload();
+      history.goBack();
       console.log("error=>", error)
     }
 
