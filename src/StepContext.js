@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Home from "./layouts/Home";
-import { withRouter, useHistory, Redirect } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { db, fire } from "./helpers/db";
 import { Redirect, Route } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
