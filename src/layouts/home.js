@@ -103,8 +103,8 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
       .signOut()
       .then(() => {
         localStorage.removeItem("user");
-        window.location.reload();
-        Navigation.history.replace("/login");
+
+        Navigation.history.replace("/KhabarWala/");
       })
       .catch(console.error);
   };
