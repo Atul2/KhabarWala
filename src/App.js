@@ -43,7 +43,7 @@ function App() {
         <SecuredRoute exact path="/selectNews" component={FirstStep} />
         <SecuredRoute exact path="/selectCategory" component={SecondStep} />
         <SecuredRoute exact path="/news-contents" component={Home} />
-        <Redirect to="/KhabarWala/" />
+        <Redirect to="/login" /> ? <Redirect to="/login" />: <Redirect to="/KhabarWala" />
       </Switch>
     </div>
   );
