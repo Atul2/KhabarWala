@@ -38,12 +38,12 @@ function App() {
     <div className="App">
       <CssBaseline />
       <Switch>
-        <Route exact path="/login" render={(props) => <SignInOutContainer {...props} authentiCation={authentication} />} />
+        <Route exact path={"/login" ? "/login" : "/KharWala"} render={(props) => <SignInOutContainer {...props} authentiCation={authentication} />} />
         <Route exact path="/Signup" component={Signup} />
         <SecuredRoute exact path="/selectNews" component={FirstStep} />
         <SecuredRoute exact path="/selectCategory" component={SecondStep} />
         <SecuredRoute exact path="/news-contents" component={Home} />
-        <Redirect to="/login" />
+        <Redirect to="/login" />? <Redirect to="/login" />: <Redirect to="/KhabarWala" />
       </Switch>
     </div>
   );
