@@ -36,7 +36,7 @@ const StepContext = ({ children, props }) => {
           .then(() => {
             toast.success("User selected news and category successfully..");
             console.log("added")
-            window.location.reload();
+            history.goForward("/news-content");
           });
       });
 
@@ -62,6 +62,7 @@ const StepContext = ({ children, props }) => {
           });
       });
     } catch (error) {
+      window.location.reload();
       console.log("error=>", error)
     }
 
@@ -72,7 +73,7 @@ const StepContext = ({ children, props }) => {
   function UpdateCategory() {
     var user = fire.currentUser;
     setFinalData((finalData) => [...finalData, userData]);
-    setUserData([]);
+
     try {
       finalData.map((data) => {
         db.collection("users_news_category").doc(docID)
@@ -86,6 +87,7 @@ const StepContext = ({ children, props }) => {
           });
       });
     } catch (error) {
+      window.location.reload();
       console.log("error=>", error)
     }
 

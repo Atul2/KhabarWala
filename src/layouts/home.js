@@ -25,7 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 
   const [auth, setAuth] = React.useState(true);
-  const { currentStep, finalData, setSecondStep, secondStep, innerdata, userID, isData } = useContext(multiStepContext);
+  const { currentStep, finalData, setSecondStep, docID, secondStep, innerdata, userID, isData } = useContext(multiStepContext);
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
   const [loadmore, setLoadmore] = useState(3);
@@ -33,7 +33,7 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
   const [news1, setNews1] = useState([]);
   const [existuser1, setExist1] = useState("");
   const history = useHistory();
-
+  console.log("doc id----", docID);
 
   useEffect(() => {
     getUser();
@@ -104,7 +104,7 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
       .then(() => {
         localStorage.removeItem("user");
         window.location.reload();
-        Navigation.history.replace("/");
+        Navigation.history.replace("/login");
       })
       .catch(console.error);
   };
@@ -113,7 +113,7 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 
 
 
-  if (userID === existuser1) {
+  if (userID === existuser1 && docID) {
     showComponent = <NewsContent
       setLoadmore={setLoadmore}
       loadmore={loadmore}
@@ -121,15 +121,17 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
       newsResults={newsResults}
     />;
   } else {
-
-    showComponent = <FirstStep />;
-
+    if (existuser1 === '' && docID === '') {
+      console.log("home me phle yha a raha h qa")
+      showComponent = <FirstStep />;
+    }
   }
 
   if (secondStep === 'secondStep') {
     showComponent = <SecondStep />;
   }
   if (secondStep === 'firstStep') {
+    console.log("yha se aaraha h ?")
     showComponent = <FirstStep />;
   }
 
@@ -152,10 +154,6 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
               </Toolbar>
             </AppBar>
           </div>
-
-
-
-
 
           {showComponent}
 
