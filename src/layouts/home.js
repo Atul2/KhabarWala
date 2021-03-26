@@ -23,6 +23,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = ({ user, existuser, category, news, isAuthenticate }) => {
+
+	console.log("home user--", user.email);
 	const [auth, setAuth] = React.useState(true);
 	const {
 		currentStep,
@@ -100,7 +102,7 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 			.then(() => {
 				localStorage.removeItem("user");
 
-				Navigation.history.replace("/KhabarWala/");
+				Navigation.history.replace("/index");
 				window.location.reload();
 			})
 			.catch(console.error);
@@ -143,6 +145,7 @@ const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 								<Typography variant="h6" style={{ flexGrow: 1 }}>
 									<b>KhabarWala</b>
 								</Typography>
+								{" "} <span>{user.email}</span>
 								<Button color="inherit" onClick={handleClose}>
 									<b>Logout</b>
 								</Button>

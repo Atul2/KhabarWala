@@ -37,6 +37,7 @@ const StepContext = ({ children, props }) => {
 					.then(() => {
 						toast.success("User selected news and category successfully..");
 						console.log("added");
+						history.push("/news-content");
 						window.location.reload();
 					});
 			});
@@ -102,6 +103,9 @@ const StepContext = ({ children, props }) => {
 				});
 		}
 		fun();
+
+		console.clear();
+
 	}, [userID, currentStep, innerdata]);
 
 	const fun = () => {

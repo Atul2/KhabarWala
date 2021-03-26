@@ -24,7 +24,7 @@ const authentication = {
 function SecuredRoute(props) {
   return (
     <Route path={props.path} render={data => authentication.getLogInStatus()
-      ? (<props.component {...data}></props.component>) : (<Redirect to={{ pathname: '/login' }}></Redirect>)
+      ? (<props.component {...data}></props.component>) : (<Redirect to={{ pathname: '/index' }}></Redirect>)
     } ></Route>
   )
 }
@@ -38,12 +38,12 @@ function App() {
     <div className="App">
       <CssBaseline />
       <Switch>
-        <Route exact path={"/login" ? "/login" : "/KhabarWala"} render={(props) => <SignInOutContainer {...props} authentiCation={authentication} />} />
+        <Route exact path="/index" render={(props) => <SignInOutContainer {...props} authentiCation={authentication} />} />
         <Route exact path="/Signup" component={Signup} />
         <SecuredRoute exact path="/selectNews" component={FirstStep} />
         <SecuredRoute exact path="/selectCategory" component={SecondStep} />
         <SecuredRoute exact path="/news-contents" component={Home} />
-        <Redirect to="/login" /> ? <Redirect to="/login" />: <Redirect to="/KhabarWala" />
+        <Redirect to="/index" />
       </Switch>
     </div>
   );
