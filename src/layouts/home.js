@@ -24,7 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Home = ({ user, existuser, category, news, isAuthenticate }) => {
 
-	console.log("home user--", user.email);
+
 	const [auth, setAuth] = React.useState(true);
 	const {
 		currentStep,
